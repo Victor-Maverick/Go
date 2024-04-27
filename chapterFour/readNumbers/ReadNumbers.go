@@ -11,7 +11,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	for total >= number {
+	for total < number {
 		fmt.Println("Enter another number: ")
 		_, err := fmt.Scan(&numbers)
 		if err != nil {
