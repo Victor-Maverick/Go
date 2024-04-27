@@ -9,14 +9,20 @@ func main() {
 func collectNumberOfItems() int64 {
 	numberOfItemCategories := 0
 	fmt.Println("Enter the number of item categories you sold: ")
-	fmt.Scan(&numberOfItemCategories)
+	_, err := fmt.Scan(&numberOfItemCategories)
+	if err != nil {
+		return 0
+	}
 	return int64(numberOfItemCategories)
 }
 
 func collectValueOfItem() float64 {
 	var valueOfItem float64
 	fmt.Println("Enter the value of item you sold: ")
-	fmt.Scan(&valueOfItem)
+	_, err := fmt.Scan(&valueOfItem)
+	if err != nil {
+		return 0
+	}
 	return valueOfItem
 }
 
