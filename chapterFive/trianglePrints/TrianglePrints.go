@@ -3,36 +3,43 @@ package main
 import "fmt"
 
 func main() {
-	printShapes()
+	print()
 }
 
-func printShapes() {
-	for count := 0; count < 10; count++ {
-		for index := 0; index <= count; index++ {
-			fmt.Print("* ")
+func print() {
+
+	for length := 1; length <= 10; length++ {
+		for input := 1; input <= length; input++ {
+			fmt.Print("*")
 		}
 		fmt.Println()
 	}
 	fmt.Println()
-	for count := 10; count > 0; count-- {
-		for index := 0; index < count; index++ {
-			fmt.Print("* ")
+	for length := 1; length <= 10; length++ {
+		for input := length; input <= 10; input++ {
+			fmt.Print("*")
 		}
 		fmt.Println()
 	}
-	fmt.Println()
-
-	for count := 10; count > 0; count-- {
-
-		for index := count; index > count; index-- {
+	for length := 1; length <= 10; length++ {
+		for input := length; input <= 10; input++ {
 			fmt.Print(" ")
 		}
-
-		for index := 0; index < count; index++ {
-			fmt.Print("* ")
+		for length1 := 1; length1 <= length; length1++ {
+			fmt.Print("*")
 		}
 		fmt.Println()
 
+	}
+	fmt.Println()
+	for length := 1; length <= 10; length++ {
+		for input := 1; input <= length; input++ {
+			fmt.Print(" ")
+		}
+		for length1 := length; length1 <= 10; length1++ {
+			fmt.Print("*")
+		}
+		fmt.Println()
 	}
 
 }
