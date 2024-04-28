@@ -8,11 +8,24 @@ func main() {
 
 func processInput() {
 	numberOfInputs := collectNumberOfInputs()
-	maximum := 0
-	var minimum int64
+	number := 0
+	maxNumber := 0
+	var minimum int
 	for i := 0; i < numberOfInputs; i++ {
-
+		fmt.Println("Enter a number")
+		_, err := fmt.Scan(&number)
+		if err != nil {
+			return
+		}
+		if number > maxNumber {
+			maxNumber = number
+		}
+		minimum = number
+		if number < minimum {
+			minimum = number
+		}
 	}
+	fmt.Println("The maximum number is", maxNumber, "and the minimum number is", minimum)
 
 }
 
