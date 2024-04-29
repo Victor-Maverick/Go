@@ -3,21 +3,23 @@ package main
 import "fmt"
 
 func main() {
-	printShape(5)
+	diamondPrint(5)
 }
 
-func printShape(numberOfCols int) {
-	for i := 0; i < numberOfCols*2-1; i++ {
-		noOfSpaces := 0
-		if i > numberOfCols {
-			noOfSpaces = i - numberOfCols
+func diamondPrint(number int) {
+	for row := 0; row < 2*number; row++ {
+		col := 0
+		if row > number {
+			col = 2*number - row
 		} else {
-			noOfSpaces = numberOfCols
+			col = row
 		}
-		for j := noOfSpaces; j > 0; j-- {
+		numberOfSpaces := number - col
+		for space := 0; space < numberOfSpaces; space++ {
 			fmt.Print(" ")
 		}
-		for j := 0; j <= i; j++ {
+
+		for column := 0; column < col; column++ {
 			fmt.Print("* ")
 		}
 		fmt.Println()
