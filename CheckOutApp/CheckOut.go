@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -13,7 +14,8 @@ func goToMainMenu() {
 	var itemsBought []string
 	var numbersBought []int64
 	var pricesBought []float64
-	collectCustomerName()
+	subTotal := 0.0
+	customerName := collectCustomerName()
 	item := collectItemBought()
 	itemsBought = append(itemsBought, item)
 	numberOfItems := collectNumberOfItems()
@@ -29,8 +31,20 @@ func goToMainMenu() {
 		pricesBought = append(pricesBought, price)
 	}
 
-	collectCashierName()
-	collectDiscount()
+	cashierName := collectCashierName()
+	discount := collectDiscount()
+	fmt.Println("SEMICOLON STORES\nMAIN BRANCH\nLOCATION: 312, HERBERT MACAULAY WAY, SABO YABA, LAGOS.\nTEL: 08148624687\nDate: ", time.Now(), "\nCashier Name: ", cashierName, "\nCustomer Name: ", customerName, ""+
+		"\n==================================================================\n\t\t\tITEM\t\t\tQTY\t\t\tPRICE\t\t\tTOTAL(NGN)", "\n------------------------------------------------------------------")
+	for count := 0; count < len(itemsBought); count++ {
+		totalForProduct := float64(numbersBought[count]) * pricesBought[count]
+		subTotal += totalForProduct
+		fmt.Printf("%16s %14d %14.2f %14.2f\n\n", itemsBought[count], numbersBought[count], pricesBought[count], totalForProduct)
+	}
+	amountOff := subTotal - ((float64(discount) * 0.01) * subTotal)
+	VatCharge := subTotal - ((17.5 * 0.01) * subTotal)
+	billTotal := subTotal + VatCharge - amountOff
+	fmt.Printf("%30s%14.2f\n%30s%14.2f\n%30s%14.2f\n%s\n%30s%14.2f\n", "Subtotal:", subTotal, "Discount:", amountOff, "VAT at 17.50%:", VatCharge, ""+
+		"==================================================================", "Bill Total: ", billTotal)
 	collectAmountPaid()
 }
 
