@@ -1,4 +1,4 @@
-package CheckOutApp
+package main
 
 import (
 	"fmt"
@@ -10,12 +10,62 @@ func main() {
 }
 
 func goToMainMenu() {
+	var itemsBought []string
+	var numbersBought []int64
+	var pricesBought []float64
 	collectCustomerName()
-	collectItemBought()
-	collectNumberOfItems()
-	collectItemPrice()
-	collectMoreDecision()
+	item := collectItemBought()
+	itemsBought = append(itemsBought, item)
+	numberOfItems := collectNumberOfItems()
+	numbersBought = append(numbersBought, numberOfItems)
+	price := collectItemPrice()
+	pricesBought = append(pricesBought, price)
+	for strings.ToLower(strings.TrimSpace(collectMoreDecision())) != "no" {
+		item = collectItemBought()
+		itemsBought = append(itemsBought, item)
+		numberOfItems = collectNumberOfItems()
+		numbersBought = append(numbersBought, numberOfItems)
+		price = collectItemPrice()
+		pricesBought = append(pricesBought, price)
+	}
+
 	collectCashierName()
+	collectDiscount()
+	collectAmountPaid()
+}
+
+func collectAmountPaid() float64 {
+	amountPaid := 0.0
+	fmt.Println("How much did the user give to you: ")
+	_, err := fmt.Scan(&amountPaid)
+	if err != nil {
+		return 0
+	}
+	for amountPaid <= 0 {
+		fmt.Println("How much did the user give to you: ")
+		_, err := fmt.Scan(&amountPaid)
+		if err != nil {
+			return 0
+		}
+	}
+	return amountPaid
+}
+
+func collectDiscount() float32 {
+	discount := 0.0
+	fmt.Println("How much discount will he get:")
+	_, err := fmt.Scan(&discount)
+	if err != nil {
+		return 0
+	}
+	for discount <= 0.0 {
+		fmt.Println("How much discount will he get:")
+		_, err := fmt.Scan(&discount)
+		if err != nil {
+			return 0
+		}
+	}
+	return float32(discount)
 }
 
 func collectItemPrice() float64 {
