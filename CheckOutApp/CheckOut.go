@@ -34,18 +34,36 @@ func goToMainMenu() {
 	cashierName := collectCashierName()
 	discount := collectDiscount()
 	fmt.Println("SEMICOLON STORES\nMAIN BRANCH\nLOCATION: 312, HERBERT MACAULAY WAY, SABO YABA, LAGOS.\nTEL: 08148624687\nDate: ", time.Now(), "\nCashier Name: ", cashierName, "\nCustomer Name: ", customerName, ""+
-		"\n==================================================================\n\t\t\tITEM\t\t\tQTY\t\t\tPRICE\t\t\tTOTAL(NGN)", "\n------------------------------------------------------------------")
+		"\n===================================================================\n\t\t\tITEM\t\t\tQTY\t\t\tPRICE\t\t\tTOTAL(NGN)", "\n-------------------------------------------------------------------")
 	for count := 0; count < len(itemsBought); count++ {
 		totalForProduct := float64(numbersBought[count]) * pricesBought[count]
 		subTotal += totalForProduct
 		fmt.Printf("%16s %14d %14.2f %14.2f\n\n", itemsBought[count], numbersBought[count], pricesBought[count], totalForProduct)
 	}
-	amountOff := subTotal - ((float64(discount) * 0.01) * subTotal)
-	VatCharge := subTotal - ((17.5 * 0.01) * subTotal)
+	amountOff := (float64(discount) * 0.01) * subTotal
+	VatCharge := (17.5 * 0.01) * subTotal
 	billTotal := subTotal + VatCharge - amountOff
-	fmt.Printf("%30s%14.2f\n%30s%14.2f\n%30s%14.2f\n%s\n%30s%14.2f\n", "Subtotal:", subTotal, "Discount:", amountOff, "VAT at 17.50%:", VatCharge, ""+
-		"==================================================================", "Bill Total: ", billTotal)
-	collectAmountPaid()
+	fmt.Printf("%30s%14.2f\n%30s%14.2f\n%30s%14.2f\n%s\n%30s%14.2f\n%s\n%s%.2f\n%14s\n", "Subtotal:", subTotal, "Discount:", amountOff, "VAT at 17.50%:", VatCharge, ""+
+		"===================================================================", "Bill Total: ", billTotal, "===================================================================", ""+
+		"THIS IS NOT AN RECEIPT KINDLY PAY ", billTotal, "===================================================================")
+	amountPaid := collectAmountPaid()
+	if amountPaid < billTotal {
+		fmt.Println("You cannot pay less than ", billTotal)
+	} else {
+		balance := amountPaid - billTotal
+
+		fmt.Println("\nSEMICOLON STORES\nMAIN BRANCH\nLOCATION: 312, HERBERT MACAULAY WAY, SABO YABA, LAGOS.\nTEL: 08148624687\nDate: ", time.Now(), "\nCashier Name: ", cashierName, "\nCustomer Name: ", customerName, ""+
+			"\n===================================================================\n\t\t\tITEM\t\t\tQTY\t\t\tPRICE\t\t\tTOTAL(NGN)", "\n-------------------------------------------------------------------")
+		for count := 0; count < len(itemsBought); count++ {
+			totalForProduct := float64(numbersBought[count]) * pricesBought[count]
+			subTotal += totalForProduct
+			fmt.Printf("%16s %14d %14.2f %14.2f\n\n", itemsBought[count], numbersBought[count], pricesBought[count], totalForProduct)
+		}
+
+		fmt.Printf("%30s%14.2f\n%30s%14.2f\n%30s%14.2f\n%s\n%30s%14.2f\n%30s%14.2f\n%30s%14.2f\n%s\n%s\n%14s\n", "Subtotal:", subTotal, "Discount:", amountOff, "VAT at 17.50%:", VatCharge, ""+
+			"===================================================================", "Bill Total: ", billTotal, "Amount Paid:", amountPaid, "Balance:", balance, "===================================================================",
+			"THANK YOU FOR YOUR PATRONAGE", "===================================================================")
+	}
 }
 
 func collectAmountPaid() float64 {
