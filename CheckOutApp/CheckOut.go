@@ -15,6 +15,13 @@ func goToMainMenu() {
 	var numbersBought []int64
 	var pricesBought []float64
 	subTotal := 0.0
+	customerName, itemsBought, numbersBought, pricesBought := collectData(itemsBought, numbersBought, pricesBought)
+	cashierName := collectCashierName()
+	discount := collectDiscount()
+	displayInvoice(cashierName, customerName, itemsBought, numbersBought, pricesBought, subTotal, discount)
+}
+
+func collectData(itemsBought []string, numbersBought []int64, pricesBought []float64) (string, []string, []int64, []float64) {
 	customerName := collectCustomerName()
 	item := collectItemBought()
 	itemsBought = append(itemsBought, item)
@@ -30,9 +37,10 @@ func goToMainMenu() {
 		price = collectItemPrice()
 		pricesBought = append(pricesBought, price)
 	}
+	return customerName, itemsBought, numbersBought, pricesBought
+}
 
-	cashierName := collectCashierName()
-	discount := collectDiscount()
+func displayInvoice(cashierName string, customerName string, itemsBought []string, numbersBought []int64, pricesBought []float64, subTotal float64, discount float32) {
 	fmt.Println("SEMICOLON STORES\nMAIN BRANCH\nLOCATION: 312, HERBERT MACAULAY WAY, SABO YABA, LAGOS.\nTEL: 08148624687\nDate: ", time.Now(), "\nCashier Name: ", cashierName, "\nCustomer Name: ", customerName, ""+
 		"\n===================================================================\n\t\t\tITEM\t\t\tQTY\t\t\tPRICE\t\t\tTOTAL(NGN)", "\n-------------------------------------------------------------------")
 	for count := 0; count < len(itemsBought); count++ {
